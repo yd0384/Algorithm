@@ -4,6 +4,7 @@ Created on Sat Feb  6 17:06:29 2021
 
 @author: young
 """
+# can't run on spyder due to sys.stdin
 import sys
 MAX_NUM=2000001
 N=int(sys.stdin.readline())
