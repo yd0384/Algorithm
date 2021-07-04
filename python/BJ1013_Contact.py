@@ -8,7 +8,6 @@ given pattern: (100+1+ | 01)+
 """
 
 import sys
-import re
 
 T=int(sys.stdin.readline())
 result=list()
@@ -57,6 +56,6 @@ for t in range(T):
     result.append(r)
 for r in (result):       
     if r:
-        print('Yes')
+        print('YES')
     else:
-        print('No')
+        print('NO')
