@@ -1,4 +1,3 @@
-package joon;
 
 public class Fibo3 {
 

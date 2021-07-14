@@ -1,4 +1,4 @@
-package joon;
+
 
 import java.util.Scanner;
 

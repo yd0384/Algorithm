@@ -1,10 +1,9 @@
-package joon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WordSorting {
-	//a´Â 97 z´Â a+25
+	//aï¿½ï¿½ 97 zï¿½ï¿½ a+25
 	public static int partition(Word arr[], int left, int right) {
 		Word pivot = arr[(left + right) / 2];
 	

@@ -1,10 +1,8 @@
-package joon;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-import joon.Maze.Pos;
 
 public class Tomato {
 	static int n;

@@ -1,5 +1,3 @@
-package joon;
-
 import java.util.Scanner;
 
 public class AlphaCentauri {
