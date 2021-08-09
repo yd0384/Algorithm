@@ -1,12 +1,14 @@
 import sys
 N, M = [int(i) for i in input().split(' ')]
-book=dict()
-for n in range(1,N+1):
-    book[n]=sys.stdin.readline().rstrip()
-inv_book = {v:k for k,v in book.items()}
+bookd=dict()
+bookl=list()
+for n in range(N):
+    s=sys.stdin.readline().rstrip()
+    bookd[s]=n+1
+    bookl.append(s)
 for m in range(M):
-    s=input()
+    s=sys.stdin.readline().rstrip()
     if s.isdigit():
-        print(book[int(s)])
+        print(bookl[int(s)-1])
     else:
-        print(inv_book[s])
+        print(bookd[s])
