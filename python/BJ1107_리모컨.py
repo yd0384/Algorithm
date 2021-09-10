@@ -21,7 +21,7 @@ else:
                 m = min(m, len(str(i))+abs(N-i))
     else:
         m=N-100
-        for i in range(90, 999999):
+        for i in range(100, 999999):
             if channels[i]==1:
                 m = min(m, len(str(i))+abs(N-i))
     print(m)
