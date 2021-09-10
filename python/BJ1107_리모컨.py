@@ -1,7 +1,7 @@
 N=int(input())
 M = int(input())
 if M==0:
-    print(abs(N-100))
+    print(min(len(str(N)),abs(N-100)))
 else:
     channels = [0]*999999
         
