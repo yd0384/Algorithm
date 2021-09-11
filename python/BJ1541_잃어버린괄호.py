@@ -1,25 +1,20 @@
-#시간초과 연산자많아지면 너무오래걸림 어떻게걸러낼지 생각
+#첫번째 -가 나오면 그 뒤를 다 -로 바꾸고 순서대로 계산할 수 있다.
 import re
-def calc(nums, ops):
-    if len(nums)==1:
-        return nums[0]
-    answers=list()
-    for i in range(len(nums)-1):
-        tnums=nums.copy()
-        tops=ops.copy()
-        a=int(tnums.pop(i))
-        b=int(tnums.pop(i))
-        op=tops.pop(i)
-        if op=='+':
-            tnums.insert(i,a+b)
-        else:
-            tnums.insert(i,a-b)
-        answers.append(calc(tnums,tops))
-    return min(answers)
 string = input()
 ops = list()
-nums=re.split('\+|\-',string)
+nums=[int(x) for x in re.split('\+|\-',string)]
 for c in string:
     if c=='+' or c=='-':
         ops.append(c)
-print(calc(nums,ops))
+minus=9999
+for i in range(len(ops)):
+    if ops[i]=='-':
+        minus=i
+        break
+answer=0
+for i in range(len(nums)):
+    if i<=minus:
+        answer+=nums[i]
+    else:
+        answer-=nums[i]
+print(answer)
