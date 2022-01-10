@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 public class BJ2805_나무자르기 {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		String[] s = br.readLine().split(" ");
@@ -21,7 +20,7 @@ public class BJ2805_나무자르기 {
 			if(trees[i]>maxh)
 				maxh=trees[i];
 		}
-		int left=1, mid=0, right=maxh, amount=0, result=0;
+		int left=1, mid=0, right=maxh, amount=0;
 		while(left<=right) {
 			amount=0;
 			mid = (left+right)/2;

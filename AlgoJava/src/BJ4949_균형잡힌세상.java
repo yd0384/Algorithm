@@ -5,7 +5,6 @@ import java.util.Stack;
 public class BJ4949_균형잡힌세상 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		ArrayList<String> results = new ArrayList<String>();
 		for(String line = sc.nextLine(); !line.equals(".");line = sc.nextLine()) {
@@ -43,6 +42,7 @@ public class BJ4949_균형잡힌세상 {
 		for(String r:results) {
 			System.out.println(r);
 		}
+		sc.close();
 	}
 
 }

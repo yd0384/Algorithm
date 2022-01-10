@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class BJ11651_좌표정렬하기2 {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int N = Integer.valueOf(br.readLine());

@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BJ1436_영화감독숌 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		Scanner sc = new Scanner(System.in);
 		long i = 0;
 		long j = 0;
@@ -25,6 +25,7 @@ public class BJ1436_영화감독숌 {
 				
 		}
 		System.out.println(j);
+		sc.close();
 	}
 
 }

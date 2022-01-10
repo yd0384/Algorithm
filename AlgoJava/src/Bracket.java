@@ -4,7 +4,6 @@ import java.util.Stack;
 public class Bracket {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		String s = sc.nextLine();
 		s=s.replace("()", "2");
@@ -64,6 +63,7 @@ public class Bracket {
 			
 		}
 		System.out.println(st.pop());
+		sc.close();
 	}
 	
 }

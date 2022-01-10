@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class BJ1043_거짓말 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		String[] nm = sc.nextLine().split(" ");
 		int N=Integer.parseInt(nm[0]), M=Integer.parseInt(nm[1]);
@@ -68,6 +67,7 @@ public class BJ1043_거짓말 {
 			}
 		}
 		System.out.println(count);
+		sc.close();
 	}
 
 }

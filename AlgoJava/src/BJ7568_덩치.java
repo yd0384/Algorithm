@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class BJ7568_덩치 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int N = Integer.valueOf(sc.nextLine());
 		ArrayList<Integer>[] xy = new ArrayList[2];
@@ -31,6 +30,6 @@ public class BJ7568_덩치 {
 			r+=Integer.valueOf(i)+" ";
 		}
 		System.out.println(r);
+		sc.close();
 	}
-
 }

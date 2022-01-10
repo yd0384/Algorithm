@@ -6,7 +6,6 @@ public class Apart
 
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		
 		int kmax=14,nmax=14;
@@ -41,5 +40,6 @@ public class Apart
 		{
 			System.out.println(i);
 		}
+		sc.close();
 	}
 }

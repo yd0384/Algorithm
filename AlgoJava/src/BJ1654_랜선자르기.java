@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 public class BJ1654_랜선자르기 {
 
 	public static void main(String[] args) throws IOException{
-		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		

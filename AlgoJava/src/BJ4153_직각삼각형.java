@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 public class BJ4153_직각삼각형{
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		while(true) {

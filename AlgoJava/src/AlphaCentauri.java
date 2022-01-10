@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class AlphaCentauri {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		int T=sc.nextInt();
 		int d[] = new int[T];
@@ -14,7 +13,7 @@ public class AlphaCentauri {
 			d[i]=y-x;
 			
 		}
-		
+		sc.close();
 	}
 
 }
