@@ -6,6 +6,7 @@ public class BJ1103_게임 {
     static int[][] map;
     static int N, M;
     static boolean[][] visited;
+    static int[][] dp;
     static int maxScore=0;
     static boolean isLoop = false;
     public static void main(String[] args) throws IOException {
@@ -26,6 +27,7 @@ public class BJ1103_게임 {
             }
         }
         visited = new boolean[N][M];
+        dp = new int[N][M];
         move(0, 0, 1);
         if(isLoop){
             System.out.println(-1);
@@ -41,6 +43,12 @@ public class BJ1103_게임 {
         }
         if(isLoop){
             return;
+        }
+        if(dp[y][x]>=score){
+            return;
+        }
+        else{
+            dp[y][x]=score;
         }
         // 1. 현재 위치의 숫자 amount를 본다.
         int amount = map[y][x];
