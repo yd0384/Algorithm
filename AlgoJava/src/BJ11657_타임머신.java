@@ -7,7 +7,7 @@ public class BJ11657_타임머신 {
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         int[][] edges = new int[M][3];
-        int[] dist = new int[N+1];
+        long[] dist = new long[N+1];
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
@@ -18,19 +18,19 @@ public class BJ11657_타임머신 {
             edges[i][2] = w;
         }
         for (int i = 2; i <= N; i++) {
-            dist[i] = Integer.MAX_VALUE;
+            dist[i] = (long)Integer.MAX_VALUE;
         }
         for (int i = 1; i <N; i++) {
             for (int j = 0; j < M; j++){
                 int u = edges[j][0];
                 int v = edges[j][1];
                 int w = edges[j][2];
-                if(dist[u]==Integer.MAX_VALUE){
+                if(dist[u]==(long)Integer.MAX_VALUE){
 
                 }
                 else{
-                    if(dist[u]+w < dist[v]){
-                        dist[v] = dist[u] + w;
+                    if(dist[u]+(long)w < dist[v]){
+                        dist[v] = dist[u] + (long)w;
                     }
                 }
             }
@@ -40,12 +40,12 @@ public class BJ11657_타임머신 {
             int u = edges[j][0];
             int v = edges[j][1];
             int w = edges[j][2];
-            if(dist[u]==Integer.MAX_VALUE){
+            if(dist[u]==(long)Integer.MAX_VALUE){
 
             }
             else{
-                if(dist[u] + w < dist[v]){
-                    dist[v] = dist[u] + w;
+                if(dist[u] + (long)w < dist[v]){
+                    dist[v] = dist[u] + (long)w;
                     updated = true;
                 }
             }
