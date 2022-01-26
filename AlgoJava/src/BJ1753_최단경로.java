@@ -29,6 +29,9 @@ public class BJ1753_최단경로 {
         pq.add(new DistFromStart(S, 0));
         while(!pq.isEmpty()){
             DistFromStart minDist = pq.poll();
+            if(minDist.dist > D[minDist.V]){
+                continue;
+            }
             for(Edge e:adj.get(minDist.V)){
                 if(D[e.v] > D[e.u] + e.w){
                     D[e.v] = D[e.u] + e.w;
