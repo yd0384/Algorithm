@@ -52,7 +52,7 @@ public class BJ11328_LCA2 {
         while(!queue.isEmpty()){
             int now = queue.poll();
             for(int v:Adj.get(now)){
-                if(depth[v]==0){ // visited
+                if(depth[v]==0){ // not visited
                     depth[v] = depth[now] + 1;
                     parent[0][v] = now;
                     queue.add(v);
@@ -65,25 +65,23 @@ public class BJ11328_LCA2 {
             return LCA(B, A);
         }
         int diff = depth[B] - depth[A];
-        int k=0;
-        int currentB = B;
+        int k = 0;
         while(diff>0){
             if(diff%2==1){
-                currentB = parent[k][B];
+                B = parent[k][B];
             }
             k++;
             diff >>= 1;
         }
-        int currentA = A;
-        if(currentA == currentB){
-            return currentA;
+        if(A == B){
+            return A;
         }
         for(int i=LogN; i>=0; i--){
-            if(parent[i][currentA] != parent[i][currentB]){
-                currentA = parent[i][currentA];
-                currentB = parent[i][currentB];
+            if(parent[i][A] != parent[i][B]){
+                A = parent[i][A];
+                B = parent[i][B];
             }
         }
-        return parent[0][currentA];
+        return parent[0][A];
     }
 }
