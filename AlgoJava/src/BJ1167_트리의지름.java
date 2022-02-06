@@ -1,78 +1,95 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.HashMap;
-import java.util.Comparator;
+import java.util.*;
+import java.io.*;
 public class BJ1167_트리의지름 {
-    static class Graph{
-        private int V;
-        ArrayList<HashMap<Integer, Integer>> tree = new ArrayList<HashMap<Integer, Integer>>();
-        Graph(int v){
-            V = v;
-            for(int i=0;i<=V;i++){
-                tree.add(new HashMap<Integer, Integer>());
-            }
-        }
-
-        void addEdge(int u, int v, int w){
-            tree.get(u).put(v, w);
-        }
-        int DFS(){
-            boolean visited[] = new boolean[V+1];
-            visited[1]=true;
-            ArrayList<Integer> dist = new ArrayList<>();
-            for(int v:tree.get(1).keySet()){
-                dist.add(visit(v, visited, tree.get(1).get(v)));
-            }
-            if(dist.size()==1){
-                return dist.get(0);
-            }
-            else{
-                dist.sort(Comparator.reverseOrder());
-                return dist.get(0)+dist.get(1);
-            }
-        }
-        int visit(int u, boolean[] visited, int r){
-            visited[u]=true;
-            int visitable = 0;
-            int dist2 = 0;
-            for(int v:tree.get(u).keySet()){
-                if(!visited[v]){
-                    visitable++;
-                }
-            }
-            if(visitable==0){
-                return r;
-            }
-            for(int v:tree.get(u).keySet()){
-                if(!visited[v]){
-                    dist2 = Math.max(dist2, visit(v, visited, r+tree.get(u).get(v)));
-                }
-            }
-            return dist2;
+    private static class Edge{
+        int v, w;
+        public Edge(int v, int w){
+            this.v = v;
+            this.w = w;
         }
     }
-    public static void main(String args[]){
-        Scanner sc = new Scanner(System.in);
-        try{
-            int V = sc.nextInt();
-            Graph graph = new Graph(V);
-            
-            sc.nextLine();
-            for(int i=0;i<V;i++){
-                String[] input = sc.nextLine().split(" ");
-                int j = 0;
-                int u = Integer.valueOf(input[j]);
-                int v, w;
-                for(j=1;!input[j].equals("-1");j+=2){
-                    v = Integer.valueOf(input[j]);
-                    w = Integer.valueOf(input[j+1]);
-                    graph.addEdge(u, v, w);
-                }
-            }
-            System.out.println(graph.DFS());
+    static boolean[] visited;
+    static int[] dp;
+    static List<List<Edge>> adj;
+    public static void main(String args[]) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int V = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+        adj = new ArrayList<>();
+        for (int i = 0; i <= V; i++) {
+            adj.add(new ArrayList<>());
         }
-        finally{
-            sc.close();
+        visited = new boolean[V+1];
+        dp = new int[V+1];
+        for (int i = 1; i <= V; i++) {
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            while(true){
+                int v = Integer.parseInt(st.nextToken());
+                if(v==-1){
+                    break;
+                }
+                int w = Integer.parseInt(st.nextToken());
+                adj.get(u).add(new Edge(v, w));
+            }   
+        }
+        DFS(1);
+        int answer = 0;
+        for (int i = 1; i <= V; i++) {
+            if(answer < dp[i]){
+                answer = dp[i];
+            }
+        }
+        System.out.println(answer);
+
+    }
+    private static int DFS(int node){
+        visited[node] = true;
+        int childCnt = 0;
+        for(Edge next : adj.get(node)){
+            if(!visited[next.v]){
+                childCnt++;
+            }
+        }
+        int maxdp = 0;
+        int ret = 0;
+        int seconddp = 0;
+        switch(childCnt){
+            case 0: 
+                return 0;
+            case 1:
+                for(Edge next : adj.get(node)){
+                    if(!visited[next.v]){
+                        dp[node] = DFS(next.v) + next.w;
+                    }
+                }
+                return dp[node];
+            case 2:
+                for(Edge next : adj.get(node)){
+                    if(!visited[next.v]){
+                        ret = DFS(next.v) + next.w;
+                        if(ret > maxdp){
+                            maxdp = ret;
+                        }
+                        dp[node] += ret;
+                    }
+                }
+                return maxdp;
+            default:
+                for(Edge next : adj.get(node)){
+                    if(!visited[next.v]){
+                        ret =  DFS(next.v) + next.w;
+                        if(ret > maxdp){
+                            seconddp = maxdp;
+                            maxdp = ret;
+                        }
+                        else if(ret > seconddp){
+                            seconddp = ret;
+                        }
+                    }
+                }
+                dp[node] = maxdp + seconddp;
+                return maxdp;
         }
     }
 }
