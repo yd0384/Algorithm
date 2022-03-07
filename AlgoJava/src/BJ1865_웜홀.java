@@ -10,16 +10,22 @@ public class BJ1865_웜홀 {
             N = Integer.parseInt(st.nextToken());
             M = Integer.parseInt(st.nextToken());
             W = Integer.parseInt(st.nextToken());
-            int[][] edges = new int[M+W][3];
+            List<Map<Integer, Integer>> map = new ArrayList<>();
+            for(int i = 0; i <= N; i++){
+                map.add(new HashMap<>());
+            }
             for (int i = 0; i < M; i++) {
                 st = new StringTokenizer(br.readLine());
                 int u, v, w;
                 u = Integer.parseInt(st.nextToken());
                 v = Integer.parseInt(st.nextToken());
                 w = Integer.parseInt(st.nextToken());
-                edges[i][0] = u;
-                edges[i][1] = v;
-                edges[i][2] = w;
+                if(map.get(u).get(v)==null){
+                    map.get(u).put(v, w);
+                }
+                else if(map.get(u).get(v) > w){
+                    map.get(u).put(v, w);
+                }
             }
             for (int i = M; i < M+W; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -27,41 +33,39 @@ public class BJ1865_웜홀 {
                 u = Integer.parseInt(st.nextToken());
                 v = Integer.parseInt(st.nextToken());
                 w = Integer.parseInt(st.nextToken());
-                edges[i][0] = u;
-                edges[i][1] = v;
-                edges[i][2] = -w;
+                if(map.get(u).get(v)==null){
+                    map.get(u).put(v, -w);
+                }
+                else if(map.get(u).get(v) > -w){
+                    map.get(u).put(v, -w);
+                }
             }
-            long[] D = new long[N+1];
-            for (int i = 2; i <= N; i++) {
-                D[i] = (long)Integer.MAX_VALUE;
+            final int INF = 987654321;
+            int[] D = new int[N+1];
+            for(int i=1; i<=N; i++){
+                D[i] = INF;
+                map.get(0).put(i, 0);
             }
-            for (int i = 1; i < N; i++) {
-                for (int j = 0; j < M+W; j++) {
-                    int u = edges[j][0];
-                    int v = edges[j][1];
-                    int w = edges[j][2];
-                    if(D[v] > D[u] + (long)w){
-                        D[v] = D[u] + (long)w;
+            for(int i=0; i<N-1; i++){
+                for (int j = 0; j <= N; j++) {
+                    for(int key : map.get(j).keySet()){
+                        if(D[key] > D[j] + map.get(j).get(key)){
+                            D[key] = D[j] + map.get(j).get(key);
+                        }
+                    }    
+                }
+            }
+            boolean changed = false;
+            for (int j = 0; j <= N; j++) {
+                for(int key : map.get(j).keySet()){
+                    if(D[key] > D[j] + map.get(j).get(key)){
+                        D[key] = D[j] + map.get(j).get(key);
+                        changed = true;
+                        break;
                     }
-                }
+                }    
             }
-            boolean negativeCycle = false;
-            for (int j = 0; j < M+W; j++) {
-                int u = edges[j][0];
-                int v = edges[j][1];
-                int w = edges[j][2];
-                if(D[v] > D[u] + (long)w){
-                    D[v] = D[u] + (long)w;
-                    negativeCycle = true;
-                    break;
-                }
-            }
-            if(negativeCycle){
-                System.out.println("YES");
-            }
-            else{
-                System.out.println("NO");
-            }
+            System.out.println(changed?"YES":"NO");
         }
     }
 }
