@@ -13,90 +13,81 @@ public class BJ2206_벽부수고이동하기 {
         M = Integer.parseInt(st.nextToken());
         int minDistance = INF;
         int[][] map = new int[N+1][M+1];
+        int[][][] visited = new int[N+1][M+1][2];
+
         for(int i = 1; i <= N; i++) {
             String line = br.readLine();
             for(int j = 1; j <= M; j++) {
                 map[i][j] = line.charAt(j-1) - '0';
             }
         }
-        Queue<Actor> queue = new LinkedList<>();
-        Actor current = new Actor(1, 1, 1, 1);
+        Queue<List<Integer>> queue = new LinkedList<>();
+        List<Integer> current = new ArrayList<>();
+        current.add(1);
+        current.add(1);
+        current.add(1);
+        visited[1][1][0] = 1;
         queue.add(current);
         while(!queue.isEmpty()) {
             current = queue.poll();
-            current.mark();
-            if(current.getY() == N && current.getX() == M) {
-                if(minDistance > current.getDistance()) {
-                    minDistance = current.getDistance();
-                }
+            int y = current.get(0);
+            int x = current.get(1);
+            int chance = current.get(2);
+            if(y==N && x == M) {
+                continue;
             }
             for(int i = 0; i<4; i++) {
-                int my = current.getY() + dy[i];
-                int mx = current.getX() + dx[i];
+                int my = y + dy[i];
+                int mx = x + dx[i];
                 if(my > 0 && mx > 0 && my <= N && mx <= M) {
-                    if(!current.isVisited(my, mx)) {
-                        if(current.getChance() == 1) {
-                            if(map[my][mx] == 1) {
-                                queue.add(current.move(my, mx, 0));
+                    if(chance == 1) {
+                        if(map[my][mx] == 1) {
+                            if(visited[my][mx][1] == 0 || visited[my][mx][1] > visited[y][x][0] + 1) {
+                                List<Integer> next = new ArrayList<>();
+                                next.add(my);
+                                next.add(mx);
+                                next.add(0);
+                                queue.add(next);
+                                visited[my][mx][1] = visited[y][x][0] + 1;
                             }
                         }
+                        else {
+                            if(visited[my][mx][0] == 0 || visited[my][mx][0] > visited[y][x][0] + 1) {
+                                List<Integer> next = new ArrayList<>();
+                                next.add(my);
+                                next.add(mx);
+                                next.add(1);
+                                queue.add(next);
+                                visited[my][mx][0] = visited[y][x][0] + 1;
+                            }
+                        }
+                    }
+                    else {
                         if(map[my][mx] == 0) {
-                            queue.add(current.move(my, mx, current.getChance()));
+                            if((visited[my][mx][1] == 0 || visited[my][mx][1] > visited[y][x][1] + 1) && (visited[my][mx][0] > visited[y][x][1] + 1 || visited[my][mx][0] == 0)) {
+                                List<Integer> next = new ArrayList<>();
+                                next.add(my);
+                                next.add(mx);
+                                next.add(0);
+                                queue.add(next);
+                                visited[my][mx][1] = visited[y][x][1] + 1;
+                            }
                         }
                     }
                 }
             }
+        }
+        if(minDistance > visited[N][M][0] && visited[N][M][0] != 0) {
+            minDistance = visited[N][M][0];
+        }
+        if(minDistance > visited[N][M][1] && visited[N][M][1] != 0) {
+            minDistance = visited[N][M][1];
         }
         if(minDistance == INF) {
             System.out.println(-1);
         }
         else {
             System.out.println(minDistance);
-        }
-
-    }
-    private static class Actor {
-        private int y;
-        private int x;
-        private int chance;
-        private int distance;
-        private Map<Integer[], Integer> visited;
-        public Actor(int y, int x, int chance, int distance) {
-            this.y = y;
-            this.x = x;
-            this.chance = chance;
-            this.distance = distance;
-            this.visited = new HashMap<>();
-        }
-        public Actor(int y, int x, int chance, int distance, Map<Integer[], Integer> visited) {
-            this.y = y;
-            this.x = x;
-            this.chance = chance;
-            this.distance = distance;
-            this.visited = new HashMap<Integer[], Integer>(visited);
-        }
-        public int getX() {
-            return x;
-        }
-        public int getY() {
-            return y;
-        }
-        public int getChance() {
-            return chance;
-        }
-        public int getDistance() {
-            return distance;
-        }
-        public void mark() {
-            Integer[] tmp = {y, x};
-            visited.put(tmp, distance);
-        }
-        public Actor move(int my, int mx, int chance) {
-            return new Actor(my, mx, chance, distance+1, visited);
-        }
-        public boolean isVisited(int my, int mx) {
-            Integer[] tmp = {my, mx};
-            return (visited.get(tmp)!=null);
         }
     }
 }
